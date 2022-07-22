@@ -56,10 +56,12 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 800,
         "resizable": true,
-        "title": "thinknote",
-        "width": 800
+        "title": "想记",
+        "width": 480,
+        "decorations": false,
+        "skipTaskbar": true
       }
     ]
   }

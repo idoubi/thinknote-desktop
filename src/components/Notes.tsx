@@ -7,6 +7,9 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
+import { appWindow, LogicalSize } from "@tauri-apps/api/window";
+// await appWindow.setSize(new LogicalSize(600, 800));
+
 const user = {
   id: 1,
   nickname: "艾逗笔",
@@ -42,6 +45,48 @@ let notes = [
   },
   {
     id: 3,
+    ctime: {
+      timestamp: 1658471332,
+      text: "2022-01-22 14:28:52",
+    },
+    text: {
+      content:
+        "还记得你说家是唯一的城堡，睡着稻香和我继续去奔跑，微微笑，小时候的梦我知道。",
+    },
+    emoji: {
+      text: "😄",
+    },
+  },
+  {
+    id: 4,
+    ctime: {
+      timestamp: 1658471332,
+      text: "2022-01-22 14:28:52",
+    },
+    text: {
+      content:
+        "还记得你说家是唯一的城堡，睡着稻香和我继续去奔跑，微微笑，小时候的梦我知道。",
+    },
+    emoji: {
+      text: "😄",
+    },
+  },
+  {
+    id: 5,
+    ctime: {
+      timestamp: 1658471332,
+      text: "2022-01-22 14:28:52",
+    },
+    text: {
+      content:
+        "还记得你说家是唯一的城堡，睡着稻香和我继续去奔跑，微微笑，小时候的梦我知道。",
+    },
+    emoji: {
+      text: "😄",
+    },
+  },
+  {
+    id: 6,
     ctime: {
       timestamp: 1658471332,
       text: "2022-01-22 14:28:52",
