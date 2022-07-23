@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -7,107 +7,21 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
+import { NoteContext } from "../context/NoteContext";
+
 import { appWindow, LogicalSize } from "@tauri-apps/api/window";
+import useNotes from "../hooks/useNotes";
 // await appWindow.setSize(new LogicalSize(600, 800));
 
-const user = {
-  id: 1,
-  nickname: "艾逗笔",
-  avatar_url: "",
-};
-
-let notes = [
-  {
-    id: 1,
-    ctime: {
-      timestamp: 1658471332,
-      text: "2022-07-22 14:28:52",
-    },
-    text: {
-      content: "你突然对我说，七里香的名字很美。",
-    },
-    emoji: {
-      text: "😞",
-    },
-  },
-  {
-    id: 2,
-    ctime: {
-      timestamp: 1658471332,
-      text: "2022-05-22 14:28:52",
-    },
-    text: {
-      content: "我还在漂泊，你是错过的烟火。",
-    },
-    emoji: {
-      text: "😙",
-    },
-  },
-  {
-    id: 3,
-    ctime: {
-      timestamp: 1658471332,
-      text: "2022-01-22 14:28:52",
-    },
-    text: {
-      content:
-        "还记得你说家是唯一的城堡，睡着稻香和我继续去奔跑，微微笑，小时候的梦我知道。",
-    },
-    emoji: {
-      text: "😄",
-    },
-  },
-  {
-    id: 4,
-    ctime: {
-      timestamp: 1658471332,
-      text: "2022-01-22 14:28:52",
-    },
-    text: {
-      content:
-        "还记得你说家是唯一的城堡，睡着稻香和我继续去奔跑，微微笑，小时候的梦我知道。",
-    },
-    emoji: {
-      text: "😄",
-    },
-  },
-  {
-    id: 5,
-    ctime: {
-      timestamp: 1658471332,
-      text: "2022-01-22 14:28:52",
-    },
-    text: {
-      content:
-        "还记得你说家是唯一的城堡，睡着稻香和我继续去奔跑，微微笑，小时候的梦我知道。",
-    },
-    emoji: {
-      text: "😄",
-    },
-  },
-  {
-    id: 6,
-    ctime: {
-      timestamp: 1658471332,
-      text: "2022-01-22 14:28:52",
-    },
-    text: {
-      content:
-        "还记得你说家是唯一的城堡，睡着稻香和我继续去奔跑，微微笑，小时候的梦我知道。",
-    },
-    emoji: {
-      text: "😄",
-    },
-  },
-];
-
 export default function RecipeReviewCard() {
+  const notes = useNotes(0);
+  console.log("notes", notes);
   return (
     <>
       {notes.map(({ id, ctime, text, emoji }) => (
         <Card style={{ marginBottom: "1em" }} key={id}>
           <CardHeader
-            avatar={<Avatar aria-label="recipe">{emoji.text}</Avatar>}
+            avatar={<Avatar aria-label="recipe">{emoji?.text}</Avatar>}
             action={
               <IconButton aria-label="settings">
                 <MoreVertIcon />
@@ -117,7 +31,7 @@ export default function RecipeReviewCard() {
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-              {text.content}
+              {text?.content}
             </Typography>
           </CardContent>
         </Card>
