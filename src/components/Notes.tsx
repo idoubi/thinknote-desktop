@@ -1,33 +1,36 @@
-import React, { useContext } from "react";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import Avatar from "@mui/material/Avatar";
-import IconButton, { IconButtonProps } from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-
+import { useContext, useEffect } from "react";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  Avatar,
+  Typography,
+  IconButton,
+} from "@mui/material";
+import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import { NoteContext } from "../context/NoteContext";
-
-import { appWindow, LogicalSize } from "@tauri-apps/api/window";
-import useNotes from "../hooks/useNotes";
-// await appWindow.setSize(new LogicalSize(600, 800));
+import { Note } from "../types/note";
 
 export default function RecipeReviewCard() {
-  const notes = useNotes(0);
-  console.log("notes", notes);
+  const { notes, fetchNotes } = useContext(NoteContext);
+
+  // fetch notes at the first time
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
   return (
     <>
-      {notes.map(({ id, ctime, text, emoji }) => (
+      {notes.map(({ id, ctime, text, emoji }: Note) => (
         <Card style={{ marginBottom: "1em" }} key={id}>
           <CardHeader
-            avatar={<Avatar aria-label="recipe">{emoji?.text}</Avatar>}
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            subheader={ctime.text}
+            // avatar={<Avatar aria-label="recipe">{id}</Avatar>}
+            // action={
+            //   <IconButton aria-label="settings">
+            //     <MoreVertIcon />
+            //   </IconButton>
+            // }
+            subheader={id.toString()}
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary">

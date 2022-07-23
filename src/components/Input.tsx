@@ -1,24 +1,26 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import AddReactionIcon from "@mui/icons-material/AddReaction";
-import SearchIcon from "@mui/icons-material/Search";
-import FaceRetouchingNaturalIcon from "@mui/icons-material/FaceRetouchingNatural";
-import DirectionsIcon from "@mui/icons-material/Directions";
+import { Paper, InputBase, Divider, IconButton } from "@mui/material";
+import {
+  AddReaction,
+  Search,
+  FaceRetouchingNatural,
+  Directions,
+} from "@mui/icons-material";
 import { NoteContext } from "../context/NoteContext";
 
 export default () => {
   const [noteContent, setNoteContent] = useState("");
-  const noteInput = useRef();
+  const { createNote } = useContext(NoteContext);
+  const noteInput = useRef(null);
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNoteContent(e.target.value);
   };
 
   const createNoteHandler = () => {
-    console.log(noteContent);
+    console.log("current note content:", noteContent);
+
+    createNote(noteContent);
   };
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export default () => {
       }}
     >
       <IconButton sx={{ p: "10px" }} aria-label="menu">
-        <FaceRetouchingNaturalIcon />
+        <FaceRetouchingNatural />
       </IconButton>
       <InputBase
         ref={noteInput}
@@ -48,9 +50,9 @@ export default () => {
         value={noteContent}
         onChange={inputChangeHandler}
       />
-      <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
-        <SearchIcon />
-      </IconButton>
+      {/* <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+        <Search />
+      </IconButton> */}
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       <IconButton
         color="primary"
@@ -58,7 +60,7 @@ export default () => {
         aria-label="directions"
         onClick={createNoteHandler}
       >
-        <DirectionsIcon />
+        <Directions />
       </IconButton>
     </Paper>
   );

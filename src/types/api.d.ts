@@ -3,6 +3,7 @@ import { ResponseJson } from "./request";
 export interface NoteItem {
   id: number;
   content: string;
+  created_at: string;
 }
 
 export type Notes = NoteItem[];
@@ -20,5 +21,5 @@ export interface NoteCreateReq {
 }
 
 export interface NoteCreateResp extends ResponseJson {
-  data?: Note;
+  data?: NoteItem;
 }

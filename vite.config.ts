@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://wxapi.thinkwx.com",
+        target: "http://wxapi.thinkwx.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

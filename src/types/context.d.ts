@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Note } from "./";
 
-export interface NoteContextValue {
+export interface ContextProviderValue {
   [propName: string]: any;
 }
 
