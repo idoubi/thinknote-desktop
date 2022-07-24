@@ -1,4 +1,4 @@
-import { RequestMethod, RequestOptions, ResponseJson } from "../types/request";
+import { RequestMethod, ResponseJson } from "../types/request";
 
 const methodGet: RequestMethod = "GET";
 const methodPost: RequestMethod = "POST";

@@ -1,0 +1,58 @@
+@appWidth: 100%;
+
+.fixed {
+  position: fixed;
+  left: 50vw;
+  width: @appWidth;
+  min-width: 360px;
+  margin-left: -(@appWidth / 2);
+}
+
+.app {
+  position: absolute;
+}
+
+header {
+  .fixed();
+  top: 0;
+  height: 4em;
+  border-bottom: 1px solid #ebebeb;
+}
+
+main {
+  .fixed();
+  top: 4em;
+  bottom: 5em;
+  overflow: scroll;
+  background-color: rgb(231, 235, 240);
+  padding: 1em 0;
+}
+
+footer {
+  .fixed();
+  background-color: #fff;
+  bottom: 0;
+  padding: 1em 0;
+  border-top: 1px solid #ccc;
+}
+
+.notes {
+  .item {
+    margin: 1em;
+    text-align: left;
+  }
+}
+
+.input {
+  display: flex;
+  padding: 0 10px;
+
+  .input {
+    flex: 1;
+  }
+
+  .submit {
+    width: 80px;
+    margin-left: 10px;
+  }
+}

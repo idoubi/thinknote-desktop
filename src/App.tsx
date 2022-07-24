@@ -1,18 +1,22 @@
-import Input from "./components/Input";
-import Notes from "./components/Notes";
-import Footer from "./components/Footer";
-import "./App.css";
-
+import { Dialog, Topbar, Notes, Input } from "./components";
 import { NoteContextProvider } from "./context/NoteContext";
+import "./App.less";
 
 export default () => {
   return (
-    <div className="App">
-      <NoteContextProvider>
-        <Input />
-        <Notes />
-        <Footer />
-      </NoteContextProvider>
-    </div>
+    <NoteContextProvider>
+      <Dialog />
+      <div className="app">
+        <header>
+          <Topbar />
+        </header>
+        <main>
+          <Notes />
+        </main>
+        <footer>
+          <Input />
+        </footer>
+      </div>
+    </NoteContextProvider>
   );
 };
