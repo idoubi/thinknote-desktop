@@ -28,6 +28,10 @@ export interface Note {
   emoji?: Emoji;
 }
 
+export interface NoteProps {
+  note: Note;
+}
+
 export interface User {
   id: number;
   nickname?: string;

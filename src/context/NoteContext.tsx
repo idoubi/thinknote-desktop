@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 import { ContextProviderProps, ContextProviderValue } from "../types/context";
 import {
   createNote as requestCreateNote,
@@ -13,8 +13,9 @@ export const NoteContext = createContext({} as ContextProviderValue);
 export const NoteContextProvider = ({ children }: ContextProviderProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogText, setDialogText] = useState("");
-
   const [notes, setNotes] = useState([] as Note[]);
+
+  const notesBottomRef = useRef<null | HTMLDivElement>(null);
 
   const showDialog = (text: string) => {
     setDialogText(text);
@@ -33,7 +34,7 @@ export const NoteContextProvider = ({ children }: ContextProviderProps) => {
     if (data) {
       const newNotes = transferNotesFromApi(data as ApiNote[]);
 
-      setNotes(newNotes);
+      setNotes(newNotes.reverse());
     }
   };
 
@@ -44,7 +45,8 @@ export const NoteContextProvider = ({ children }: ContextProviderProps) => {
     if (data) {
       const newNote = transferNoteFromApi(data as ApiNote);
 
-      setNotes((notes) => [...notes, newNote]);
+      // setNotes((notes) => [...notes, newNote]);
+      fetchNotes(0);
     }
 
     return { code, message, data };
@@ -58,6 +60,7 @@ export const NoteContextProvider = ({ children }: ContextProviderProps) => {
         showDialog,
         hideDialog,
         notes,
+        notesBottomRef,
         fetchNotes,
         createNote,
       }}

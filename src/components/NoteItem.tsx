@@ -8,9 +8,9 @@ import {
 } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { red } from "@mui/material/colors";
-import { Note } from "../types";
+import { NoteProps } from "../types/note";
 
-export default (note: Note) => {
+export default ({ note }: NoteProps) => {
   return (
     <Card className="item">
       <CardHeader
@@ -30,7 +30,11 @@ export default (note: Note) => {
         subheader={note.ctime.text}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          style={{ whiteSpace: "pre-wrap" }}
+        >
           {note.text?.content}
         </Typography>
       </CardContent>

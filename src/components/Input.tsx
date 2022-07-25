@@ -4,12 +4,21 @@ import { Button, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 export default () => {
-  const { showDialog, createNote } = useContext(NoteContext);
+  const { showDialog, notes, createNote, notesBottomRef } =
+    useContext(NoteContext);
   const [noteContent, setNoteContent] = useState("");
-  const inputRef = useRef(null);
+  const inputRef = useRef<null | HTMLDivElement>(null);
 
-  const inputOnChange = (e) => {
+  const inputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNoteContent(e.target.value);
+  };
+
+  const inputOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // 只有单独按 Enter，才会提交。Shift + Enter 会换行
+    if (e.code === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      submitHandler();
+    }
   };
 
   const submitHandler = async () => {
@@ -20,11 +29,21 @@ export default () => {
 
     const { code, message, data } = await createNote(noteContent);
     console.log("create note:", code, message, data);
-    showDialog("发送成功");
 
     setNoteContent("");
     inputRef.current?.focus();
+
+    notesBottomRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
   };
+
+  useEffect(() => {
+    inputRef.current?.focus();
+    console.log("input ref", inputRef.current);
+  }, [notes]);
 
   return (
     <div className="input">
@@ -35,15 +54,17 @@ export default () => {
         maxRows={4}
         value={noteContent}
         onChange={inputOnChange}
+        onKeyDown={inputOnKeyDown}
+        ref={inputRef}
       />
-      <Button
+      {/* <Button
         className="submit"
         variant="outlined"
         size="small"
         onClick={submitHandler}
       >
         <SendIcon />
-      </Button>
+      </Button> */}
     </div>
   );
 };
