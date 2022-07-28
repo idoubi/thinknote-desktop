@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   AppBar,
   Box,
@@ -8,8 +9,11 @@ import {
   IconButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { NoteContext } from "../context/NoteContext";
 
-export default function ButtonAppBar() {
+export default () => {
+  const { user, userLogin } = useContext(NoteContext);
+  console.log("userinfo", user);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar>
@@ -21,19 +25,17 @@ export default function ButtonAppBar() {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            &nbsp;
+            {/* <MenuIcon /> */}
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             想记
           </Typography>
           <Button color="inherit">
-            <Avatar
-              alt="avatar"
-              src="https://blogcdn.idoustudio.com/idoubi.jpeg"
-            />
+            <Avatar alt="avatar" src={user.avatar_url} />
           </Button>
         </Toolbar>
       </AppBar>
     </Box>
   );
-}
+};

@@ -14,19 +14,19 @@ export default ({ note }: NoteProps) => {
   return (
     <Card className="item">
       <CardHeader
-        avatar={
-          <Avatar
-            src="https://blogcdn.idoustudio.com/idoubi.jpeg"
-            sx={{ bgcolor: red[500] }}
-            aria-label="recipe"
-          />
-        }
+        // avatar={
+        //   <Avatar
+        //     src="https://blogcdn.idoustudio.com/idoubi.jpeg"
+        //     sx={{ bgcolor: red[500] }}
+        //     aria-label="recipe"
+        //   />
+        // }
         action={
           <IconButton aria-label="settings">
             <MoreVert />
           </IconButton>
         }
-        title="艾逗笔"
+        // title="艾逗笔"
         subheader={note.ctime.text}
       />
       <CardContent>

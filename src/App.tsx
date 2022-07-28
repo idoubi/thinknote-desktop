@@ -1,22 +1,34 @@
-import { Dialog, Topbar, Notes, Input } from "./components";
-import { NoteContextProvider } from "./context/NoteContext";
+import { useContext } from "react";
+import { NoteContext } from "./context/NoteContext";
+import { Dialog, Topbar, Notes, Input, Login } from "./components";
 import "./App.less";
 
 export default () => {
+  const { user } = useContext(NoteContext);
+  console.log("userinfo:", user);
+
   return (
-    <NoteContextProvider>
+    <>
       <Dialog />
       <div className="app">
         <header>
           <Topbar />
         </header>
-        <main>
-          <Notes />
-        </main>
-        <footer>
-          <Input />
-        </footer>
+        {user.id ? (
+          <>
+            <main>
+              <Notes />
+            </main>
+            <footer>
+              <Input />
+            </footer>
+          </>
+        ) : (
+          <main>
+            <Login />
+          </main>
+        )}
       </div>
-    </NoteContextProvider>
+    </>
   );
 };

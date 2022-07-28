@@ -1,12 +1,7 @@
-import { createContext, useRef, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import { ContextProviderProps, ContextProviderValue } from "../types/context";
-import {
-  createNote as requestCreateNote,
-  getNotes as requestGetNotes,
-} from "../apis/note";
-import { Note } from "../types/note";
-import { NoteItem as ApiNote } from "../types/api";
-import { transferNotesFromApi, transferNoteFromApi } from "../utils/transfer";
+import { getUserProfile } from "../apis/note";
+import { Note, User } from "../types/note";
 
 export const NoteContext = createContext({} as ContextProviderValue);
 
@@ -14,8 +9,7 @@ export const NoteContextProvider = ({ children }: ContextProviderProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogText, setDialogText] = useState("");
   const [notes, setNotes] = useState([] as Note[]);
-
-  const notesBottomRef = useRef<null | HTMLDivElement>(null);
+  const [user, setUser] = useState({} as User);
 
   const showDialog = (text: string) => {
     setDialogText(text);
@@ -27,30 +21,20 @@ export const NoteContextProvider = ({ children }: ContextProviderProps) => {
     setDialogText("");
   };
 
-  // fetch notes
-  const fetchNotes = async (lastId: number) => {
-    const { code, message, data } = await requestGetNotes({ lastId });
-    console.log("request fetch notes", code, message, data);
-    if (data) {
-      const newNotes = transferNotesFromApi(data as ApiNote[]);
-
-      setNotes(newNotes.reverse());
+  // 检测登录
+  const checkLogin = async () => {
+    const { code, message, data } = await getUserProfile();
+    console.log("check login", code, message, data);
+    if (data && data.id) {
+      // 用于已登录
+      setUser(data);
     }
   };
 
-  // create note
-  const createNote = async (content: string) => {
-    const { code, message, data } = await requestCreateNote({ content });
-    console.log("request create note", code, message, data);
-    if (data) {
-      const newNote = transferNoteFromApi(data as ApiNote);
-
-      // setNotes((notes) => [...notes, newNote]);
-      fetchNotes(0);
-    }
-
-    return { code, message, data };
-  };
+  // check login at the first time
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   return (
     <NoteContext.Provider
@@ -59,10 +43,10 @@ export const NoteContextProvider = ({ children }: ContextProviderProps) => {
         dialogText,
         showDialog,
         hideDialog,
+        user,
+        checkLogin,
         notes,
-        notesBottomRef,
-        fetchNotes,
-        createNote,
+        setNotes,
       }}
     >
       {children}
