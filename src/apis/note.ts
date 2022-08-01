@@ -3,6 +3,8 @@ import {
   CheckLoginTicketResp,
   CreateNoteReq,
   CreateNoteResp,
+  DeleteNoteReq,
+  DeleteNoteResp,
   GetLoginQrcodeResp,
   GetNoteListReq,
   GetNoteListResp,
@@ -11,15 +13,16 @@ import {
   UpdateUserProfileResp,
 } from "../types/api";
 
-import { get, postJson } from "../utils/request";
+import { get, post } from "../utils/request";
 import { getTimestamp } from "../utils/util";
 
-const API_GET_LOGIN_QRCODE = "/api/note/get-login-qrcode";
-const API_CHECK_LOGIN_TICKET = "/api/note/check-login-ticket";
-const API_GET_USER_PROFILE = "/api/note/get-user-profile";
-const API_UPDATE_USER_PROFILE = "/api/note/update-user-profile";
-const API_GET_NOTE_LIST = "/api/note/get-note-list";
-const API_CREATE_NOTE = "/api/note/create-note";
+const API_GET_LOGIN_QRCODE = "/note/get-login-qrcode";
+const API_CHECK_LOGIN_TICKET = "/note/check-login-ticket";
+const API_GET_USER_PROFILE = "/note/get-user-profile";
+const API_UPDATE_USER_PROFILE = "/note/update-user-profile";
+const API_GET_NOTE_LIST = "/note/get-note-list";
+const API_CREATE_NOTE = "/note/create-note";
+const API_DELETE_NOTE = "/note/delete-note";
 
 const TOKEN_CACHE_KEY = "user_token";
 const TOKEN_SPLITTER = ":::";
@@ -28,6 +31,10 @@ export const setTokenToCache = (token: string, expiresAt: number): void => {
   const tokenWithExpiresAt = `${token}${TOKEN_SPLITTER}${expiresAt}`;
 
   localStorage.setItem(TOKEN_CACHE_KEY, tokenWithExpiresAt);
+};
+
+export const deleteTokenFromCache = (): void => {
+  localStorage.removeItem(TOKEN_CACHE_KEY);
 };
 
 export const getTokenFromCache = (): string | null => {
@@ -70,7 +77,7 @@ export const checkLoginTicket = async (
 ): Promise<CheckLoginTicketResp> => {
   const uri = API_CHECK_LOGIN_TICKET;
 
-  return postJson(uri, data);
+  return post(uri, data);
 };
 
 export const getUserProfile = async (): Promise<GetUserProfileResp> => {
@@ -84,7 +91,7 @@ export const updateUserProfile = async (
 ): Promise<UpdateUserProfileResp> => {
   const uri = API_UPDATE_USER_PROFILE;
 
-  return postJson(uri, data, getAuthHeaders());
+  return post(uri, data, getAuthHeaders());
 };
 
 export const getNotes = async (
@@ -100,5 +107,13 @@ export const createNote = async (
 ): Promise<CreateNoteResp> => {
   const uri = API_CREATE_NOTE;
 
-  return postJson(uri, data, getAuthHeaders());
+  return post(uri, data, getAuthHeaders());
+};
+
+export const deleteNote = async (
+  data: DeleteNoteReq
+): Promise<DeleteNoteResp> => {
+  const uri = API_DELETE_NOTE;
+
+  return post(uri, data, getAuthHeaders());
 };

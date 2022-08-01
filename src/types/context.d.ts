@@ -7,3 +7,9 @@ export interface ContextProviderValue {
 export interface ContextProviderProps {
   children: ReactNode;
 }
+
+export interface Env {
+  platform: string;
+  appName: string;
+  apiBaseUri: string;
+}

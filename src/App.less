@@ -1,27 +1,23 @@
-@appWidth: 100%;
-
-.fixed {
-  position: fixed;
-  left: 50vw;
-  width: @appWidth;
-  min-width: 360px;
-  margin-left: -(@appWidth / 2);
-}
-
 .app {
-  position: absolute;
+  width: 420px;
+  height: 100vh;
+  background-color: #ebedf0;
+  margin: 0 auto;
 }
 
 header {
-  .fixed();
+  position: fixed;
   top: 0;
+  width: inherit;
   height: 4em;
+  background-color: #007fff;
   border-bottom: 1px solid #ebebeb;
 }
 
 main {
-  .fixed();
+  position: fixed;
   top: 4em;
+  width: inherit;
   bottom: 5em;
   overflow: scroll;
   background-color: rgb(231, 235, 240);
@@ -29,11 +25,24 @@ main {
 }
 
 footer {
-  .fixed();
-  background-color: #fff;
+  position: fixed;
   bottom: 0;
+  width: inherit;
+  background-color: #fff;
   padding: 1em 0;
   border-top: 1px solid #ccc;
+}
+
+.topbar {
+  display: flex;
+
+  .logo {
+    width: 2em;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 700;
+    color: #fff;
+  }
 }
 
 .notes {

@@ -40,6 +40,12 @@ export interface CreateNoteResp extends ResponseJson {
   data?: NoteItem;
 }
 
+export interface DeleteNoteReq {
+  id: number;
+}
+
+export interface DeleteNoteResp extends ResponseJson {}
+
 export interface GetUserProfileResp extends ResponseJson {
   data?: UserProfile;
 }

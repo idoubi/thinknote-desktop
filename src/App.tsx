@@ -1,11 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { NoteContext } from "./context/NoteContext";
 import { Dialog, Topbar, Notes, Input, Login } from "./components";
 import "./App.less";
 
 export default () => {
   const { user } = useContext(NoteContext);
-  console.log("userinfo:", user);
 
   return (
     <>
